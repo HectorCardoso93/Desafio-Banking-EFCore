@@ -36,7 +36,6 @@ namespace DesafioTecnicoBanking
                 var contas = context.Contas.ToList();
                 foreach (var conta in contas)
                 {
-                    comboDepositante.Items.Add(conta.NumeroConta);
                     comboDestino.Items.Add(conta.NumeroConta);
                 }
             }
@@ -46,12 +45,11 @@ namespace DesafioTecnicoBanking
         {
             using(var context = new BankingDataContext())
             {
-                int indiceDepositante = Convert.ToInt32(comboDepositante.SelectedItem);
                 int indiceDestino = Convert.ToInt32(comboDestino.SelectedItem);
                 double valor = Convert.ToDouble(textoValor.Text);
-                depositos.MainDeposito(indiceDestino, indiceDepositante, valor);
+                string nomeDepositante = textoDepositante.Text;
+                depositos.MainDeposito(indiceDestino, nomeDepositante, valor);
             }
-            //depositos.MainDeposito(contaDepositante, contaDestino, valor);
         }
     }
 }

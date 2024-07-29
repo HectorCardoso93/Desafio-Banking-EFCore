@@ -21,22 +21,29 @@ namespace DesafioTecnicoBanking.Metodos
             using (var context = new BankingDataContext())
             {
                 var conta = context.Contas.FirstOrDefault(x => x.NumeroConta == indiceConta);
-                if (verificado || !conta.IsContaCorrente)
+                if(conta.SaldoTotal > valor)
                 {
-                    conta.Saldo -= valor;
-                    context.Contas.Update(conta);
-                    context.SaveChanges();
-                    MessageBox.Show($"O saldo da conta {conta.NumeroConta} foi para {conta.Saldo}");
+                    if (verificado || !conta.IsContaCorrente)
+                    {
+                        conta.Saldo -= valor;
+                        context.Contas.Update(conta);
+                        context.SaveChanges();
+                        MessageBox.Show($"O saldo da conta {conta.NumeroConta} foi para {conta.Saldo}");
+                    }
+                    else
+                    {
+                        double operacaoSaque = 4.77;
+                        MessageBox.Show($"Para essa operação descontamos {operacaoSaque} do seu saldo.");
+                        conta.Saldo -= (valor + operacaoSaque);
+                        context.Contas.Update(conta);
+                        context.SaveChanges();
+                        MessageBox.Show($"O saldo da conta {conta.NumeroConta} foi para {conta.Saldo}");
+                        MessageBox.Show($"Seu saldo foi para {conta.Saldo}");
+                    }
                 }
                 else
                 {
-                    double operacaoSaque = 4.77;
-                    MessageBox.Show($"Para essa operação descontamos {operacaoSaque} do seu saldo.");
-                    conta.Saldo -= (valor + operacaoSaque);
-                    context.Contas.Update(conta);
-                    context.SaveChanges();
-                    MessageBox.Show($"O saldo da conta {conta.NumeroConta} foi para {conta.Saldo}");
-                    MessageBox.Show($"Seu saldo foi para {conta.Saldo}");
+                    MessageBox.Show("Valor do saque é maior que o seu saldo.");
                 }
             }
         }

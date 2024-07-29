@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DesafioTecnicoBanking.Data;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DesafioTecnicoBanking
 {
@@ -46,9 +47,7 @@ namespace DesafioTecnicoBanking
             {
                 int indiceConta = Convert.ToInt32(comboTitular.SelectedItem);
                 consultarSaldo.MainConsultaSaldo(indiceConta);
-                string indice = comboTitular.Text;
-                var conta = context.Contas.FirstOrDefault(x => x.NumeroConta == Convert.ToInt32(indice));
-
+                var conta = context.Contas.FirstOrDefault(x => x.NumeroConta == indiceConta);
                 textoAgencia.Text = Convert.ToString(conta.Agencia);
                 textoConta.Text = Convert.ToString(conta.NumeroConta);
                 textoSaldo.Text = Convert.ToString(conta.Saldo);

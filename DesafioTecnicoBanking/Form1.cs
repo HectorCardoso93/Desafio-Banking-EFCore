@@ -64,12 +64,14 @@ namespace DesafioTecnicoBanking
         {
             using(var context = new BankingDataContext())
             {
-                string indice = comboContas.Text;
-                var selecionada = context.Contas.FirstOrDefault(x => x.NumeroConta == Convert.ToInt32(indice));
+                int indice = Convert.ToInt32(comboContas.SelectedItem);
+                var conta = context.Contas.Include(x => x.Titular);
+                var selecionada = conta.FirstOrDefault(x => x.NumeroConta == indice);
+                //var selecionada = context.Contas.FirstOrDefault(x => x.NumeroConta == Convert.ToInt32(indice));
 
                 textoAgencia.Text = Convert.ToString(selecionada.Agencia);
                 textoNumeroConta.Text = Convert.ToString(selecionada.NumeroConta);
-                //textoTitular.Text = conta.;
+                textoTitular.Text = Convert.ToString(selecionada.Titular.Nome);
             }
         }
     }

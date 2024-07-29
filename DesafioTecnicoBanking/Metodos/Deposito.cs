@@ -15,18 +15,16 @@ namespace DesafioTecnicoBanking.Metodos
         {
             context = new BankingDataContext();
         }
-        public void MainDeposito(int indiceDestino, int indiceDepositante, double valor)
+        public void MainDeposito(int indiceDestino, string nomeDepositante, double valor)
         {
             using(var context = new BankingDataContext())
             {
                 var contaDestino = context.Contas.FirstOrDefault(x => x.NumeroConta == indiceDestino);
-                var contaDepositante = context.Contas.FirstOrDefault(x => x.NumeroConta == indiceDepositante);
-                contaDepositante.Saldo -= valor;
                 contaDestino.Saldo += valor;
-                context.Contas.UpdateRange(contaDestino, contaDepositante);
+                context.Contas.Update(contaDestino);
                 context.SaveChanges();
 
-                MessageBox.Show($"Deposito efetuado com sucesso da conta - ({contaDepositante.NumeroConta}) para conta - ({contaDestino.NumeroConta}) no valor de R${valor.ToString("F")}");
+                MessageBox.Show($"Deposito efetuado com sucesso da Nome do depositante - ({nomeDepositante}) para conta - ({contaDestino.NumeroConta}) no valor de R${valor.ToString("F")}");
             }
         }
     }

@@ -29,6 +29,12 @@ namespace DesafioTecnicoBanking.Metodos
                     return;
                 }
 
+                if(contaDestino.Agencia != contaRemetente.Agencia)
+                {
+                    MessageBox.Show("A operação não pode ser concluída pois não são do mesmo banco.");
+                    return;
+                }
+
                 if(verificado || !contaRemetente.IsContaCorrente)
                 {
                     contaDestino.Saldo += valor;

@@ -30,6 +30,8 @@ namespace DesafioTecnicoBanking.Metodos
                 {
                     double operacaoConsultaSaldo = 1.37;
                     conta.Saldo -= operacaoConsultaSaldo;
+                    context.Contas.Update(conta);
+                    context.SaveChanges();
                     MessageBox.Show($"A operação de saque foi feita e seu saldo é de {conta.Saldo.ToString("F")}");
                 }
             }

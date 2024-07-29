@@ -20,6 +20,10 @@ namespace DesafioTecnicoBanking.Metodos
             {
                 var conta = context.Contas.FirstOrDefault(x => x.NumeroConta == indiceConta);
                 DateTime dataUltimaOperacao = conta.DataUltimaOperacao;
+                if (!conta.IsContaCorrente)
+                {
+                    return true;
+                }
                 if (dataUltimaOperacao.Month != dataAtual.Month || dataUltimaOperacao.Year != dataAtual.Year)
                 {
                     conta.DataUltimaOperacao = DateTime.Now;
